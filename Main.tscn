@@ -1,0 +1,106 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8y4g2k7w8c3v"]
+
+[ext_resource type="Script" uid="uid://db8o4endvvhvc" path="res://Main.gd" id="1_q1w2e"]
+[ext_resource type="Texture2D" uid="uid://dcorikjr2nrpi" path="res://icon.svg" id="2_a1b2c"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q1w2e")
+
+[node name="CountLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 50.0
+offset_bottom = 138.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "アンダギー: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AndagiButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 64)
+texture_normal = ExtResource("2_a1b2c")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ShopContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = -50.0
+offset_bottom = 150.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ParankuBox" type="VBoxContainer" parent="ShopContainer"]
+layout_mode = 2
+
+[node name="HireParankuButton" type="Button" parent="ShopContainer/ParankuBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "パーランクーを雇う"
+
+[node name="ParankuCountLabel" type="Label" parent="ShopContainer/ParankuBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "所持数: 0 個"
+horizontal_alignment = 1
+
+[node name="ParankuCostLabel" type="Label" parent="ShopContainer/ParankuBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "コスト: 15"
+horizontal_alignment = 1
+
+[node name="ObaaBox" type="VBoxContainer" parent="ShopContainer"]
+layout_mode = 2
+
+[node name="HireObaaButton" type="Button" parent="ShopContainer/ObaaBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "おばぁを雇う"
+
+[node name="ObaaCountLabel" type="Label" parent="ShopContainer/ObaaBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "所持数: 0 人"
+horizontal_alignment = 1
+
+[node name="ObaaCostLabel" type="Label" parent="ShopContainer/ObaaBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "コスト: 100"
+horizontal_alignment = 1
+
+[node name="AutoTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="pressed" from="AndagiButton" to="." method="_on_andagi_button_pressed"]
+[connection signal="pressed" from="ShopContainer/ParankuBox/HireParankuButton" to="." method="buy_paranku"]
+[connection signal="pressed" from="ShopContainer/ObaaBox/HireObaaButton" to="." method="buy_obaa"]
+[connection signal="timeout" from="AutoTimer" to="." method="_on_auto_timer_timeout"]
