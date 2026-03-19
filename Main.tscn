@@ -42,65 +42,195 @@ texture_normal = ExtResource("2_a1b2c")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="ShopContainer" type="VBoxContainer" parent="."]
+[node name="ShopScroll" type="ScrollContainer" parent="."]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -150.0
-offset_right = -50.0
-offset_bottom = 150.0
+offset_left = -280.0
+offset_top = -250.0
+offset_right = -30.0
+offset_bottom = 250.0
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="ShopContainer" type="VBoxContainer" parent="ShopScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
-[node name="ParankuBox" type="VBoxContainer" parent="ShopContainer"]
+[node name="ParankuBox" type="VBoxContainer" parent="ShopScroll/ShopContainer"]
 layout_mode = 2
 
-[node name="HireParankuButton" type="Button" parent="ShopContainer/ParankuBox"]
+[node name="HireParankuButton" type="Button" parent="ShopScroll/ShopContainer/ParankuBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "パーランクーを雇う"
 
-[node name="ParankuCountLabel" type="Label" parent="ShopContainer/ParankuBox"]
+[node name="ParankuCountLabel" type="Label" parent="ShopScroll/ShopContainer/ParankuBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "所持数: 0 個"
 horizontal_alignment = 1
 
-[node name="ParankuCostLabel" type="Label" parent="ShopContainer/ParankuBox"]
+[node name="ParankuCostLabel" type="Label" parent="ShopScroll/ShopContainer/ParankuBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "コスト: 15"
 horizontal_alignment = 1
 
-[node name="ObaaBox" type="VBoxContainer" parent="ShopContainer"]
+[node name="ObaaBox" type="VBoxContainer" parent="ShopScroll/ShopContainer"]
 layout_mode = 2
 
-[node name="HireObaaButton" type="Button" parent="ShopContainer/ObaaBox"]
+[node name="HireObaaButton" type="Button" parent="ShopScroll/ShopContainer/ObaaBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "おばぁを雇う"
 
-[node name="ObaaCountLabel" type="Label" parent="ShopContainer/ObaaBox"]
+[node name="ObaaCountLabel" type="Label" parent="ShopScroll/ShopContainer/ObaaBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "所持数: 0 人"
 horizontal_alignment = 1
 
-[node name="ObaaCostLabel" type="Label" parent="ShopContainer/ObaaBox"]
+[node name="ObaaCostLabel" type="Label" parent="ShopScroll/ShopContainer/ObaaBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "コスト: 100"
 horizontal_alignment = 1
 
+[node name="NabiBox" type="VBoxContainer" parent="ShopScroll/ShopContainer"]
+layout_mode = 2
+
+[node name="AddNabiButton" type="Button" parent="ShopScroll/ShopContainer/NabiBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "シンメーナービを追加"
+
+[node name="NabiCountLabel" type="Label" parent="ShopScroll/ShopContainer/NabiBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "所持数: 0 個"
+horizontal_alignment = 1
+
+[node name="NabiCostLabel" type="Label" parent="ShopScroll/ShopContainer/NabiBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "コスト: 1000"
+horizontal_alignment = 1
+
+[node name="ShopBox" type="VBoxContainer" parent="ShopScroll/ShopContainer"]
+layout_mode = 2
+
+[node name="AddShopButton" type="Button" parent="ShopScroll/ShopContainer/ShopBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "まちやーぐゎーを設立"
+
+[node name="ShopCountLabel" type="Label" parent="ShopScroll/ShopContainer/ShopBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "所持数: 0 軒"
+horizontal_alignment = 1
+
+[node name="ShopCostLabel" type="Label" parent="ShopScroll/ShopContainer/ShopBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "コスト: 12000"
+horizontal_alignment = 1
+
+[node name="MallBox" type="VBoxContainer" parent="ShopScroll/ShopContainer"]
+layout_mode = 2
+
+[node name="BuildMallButton" type="Button" parent="ShopScroll/ShopContainer/MallBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "大型モールを建設"
+
+[node name="MallCountLabel" type="Label" parent="ShopScroll/ShopContainer/MallBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "所持数: 0 軒"
+horizontal_alignment = 1
+
+[node name="MallCostLabel" type="Label" parent="ShopScroll/ShopContainer/MallBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "コスト: 150000"
+horizontal_alignment = 1
+
+[node name="GusukuBox" type="VBoxContainer" parent="ShopScroll/ShopContainer"]
+layout_mode = 2
+
+[node name="BuildGusukuButton" type="Button" parent="ShopScroll/ShopContainer/GusukuBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "越来グスクを再建"
+
+[node name="GusukuCountLabel" type="Label" parent="ShopScroll/ShopContainer/GusukuBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "所持数: 0 城"
+horizontal_alignment = 1
+
+[node name="GusukuCostLabel" type="Label" parent="ShopScroll/ShopContainer/GusukuBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "コスト: 2000000"
+horizontal_alignment = 1
+
+[node name="FujinkaiBox" type="VBoxContainer" parent="ShopScroll/ShopContainer"]
+layout_mode = 2
+
+[node name="AddFujinkaiButton" type="Button" parent="ShopScroll/ShopContainer/FujinkaiBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "婦人会を招集"
+
+[node name="FujinkaiCountLabel" type="Label" parent="ShopScroll/ShopContainer/FujinkaiBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "所持数: 0 人"
+horizontal_alignment = 1
+
+[node name="FujinkaiCostLabel" type="Label" parent="ShopScroll/ShopContainer/FujinkaiBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "コスト: 33000000"
+horizontal_alignment = 1
+
 [node name="AutoTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="SaveButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 20
+text = "セーブ"
+
+[node name="SaveLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 140.0
+offset_top = 25.0
+offset_right = 260.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "保存しました"
+
 [connection signal="pressed" from="AndagiButton" to="." method="_on_andagi_button_pressed"]
-[connection signal="pressed" from="ShopContainer/ParankuBox/HireParankuButton" to="." method="buy_paranku"]
-[connection signal="pressed" from="ShopContainer/ObaaBox/HireObaaButton" to="." method="buy_obaa"]
+[connection signal="pressed" from="ShopScroll/ShopContainer/ParankuBox/HireParankuButton" to="." method="buy_paranku"]
+[connection signal="pressed" from="ShopScroll/ShopContainer/ObaaBox/HireObaaButton" to="." method="buy_obaa"]
+[connection signal="pressed" from="ShopScroll/ShopContainer/NabiBox/AddNabiButton" to="." method="buy_nabi"]
+[connection signal="pressed" from="ShopScroll/ShopContainer/ShopBox/AddShopButton" to="." method="buy_shop"]
+[connection signal="pressed" from="ShopScroll/ShopContainer/MallBox/BuildMallButton" to="." method="buy_mall"]
+[connection signal="pressed" from="ShopScroll/ShopContainer/GusukuBox/BuildGusukuButton" to="." method="buy_gusuku"]
+[connection signal="pressed" from="ShopScroll/ShopContainer/FujinkaiBox/AddFujinkaiButton" to="." method="buy_fujinkai"]
 [connection signal="timeout" from="AutoTimer" to="." method="_on_auto_timer_timeout"]
+[connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]
