@@ -20,6 +20,11 @@ var is_fever_mode: bool = false
 
 @onready var count_label: Label = $CountLabel
 var floating_text_scene = preload("res://FloatingText.tscn")
+var crumb_particles_scene = preload("res://CrumbParticles.tscn")
+
+@onready var click_se: AudioStreamPlayer = $ClickSE
+@onready var buy_se: AudioStreamPlayer = $BuySE
+@onready var auto_produce_se: AudioStreamPlayer = $AutoProduceSE
 
 @onready var paranku_count_label: Label = $ShopScroll/ShopContainer/ParankuBox/ParankuCountLabel
 @onready var paranku_cost_label: Label = $ShopScroll/ShopContainer/ParankuBox/ParankuCostLabel
@@ -55,6 +60,11 @@ func _ready() -> void:
 	setup_golden_andagi_timer()
 	update_ui()
 
+func play_randomized_se(player: AudioStreamPlayer) -> void:
+	if is_instance_valid(player):
+		player.pitch_scale = randf_range(0.9, 1.1)
+		player.play()
+
 func _process(delta: float) -> void:
 	var multiplier = 7.0 if is_fever_mode else 1.0
 	var base_prod = (paranku_count * 0.1) + (obaa_count * 1.0)
@@ -66,14 +76,21 @@ func _process(delta: float) -> void:
 func _on_andagi_button_pressed() -> void:
 	var multiplier = 7.0 if is_fever_mode else 1.0
 	andagi_count += 1.0 * multiplier
+	
 	var tween = create_tween()
 	$AndagiButton.scale = Vector2(0.9, 0.9)
-	tween.tween_property($AndagiButton, "scale", Vector2(1.0, 1.0), 0.1)
+	tween.tween_property($AndagiButton, "scale", Vector2(1.0, 1.0), 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	
 	var ft = floating_text_scene.instantiate()
 	ft.get_node("Label").text = "+" + str(1.0 * multiplier)
 	ft.global_position = get_global_mouse_position()
 	add_child(ft)
+	
+	var crumbs = crumb_particles_scene.instantiate()
+	crumbs.global_position = get_global_mouse_position()
+	add_child(crumbs)
+	
+	play_randomized_se(click_se)
 	
 	update_ui()
 
@@ -82,6 +99,7 @@ func buy_paranku() -> void:
 		andagi_count -= paranku_cost
 		paranku_count += 1
 		paranku_cost = int(round(paranku_cost * 1.15))
+		play_randomized_se(buy_se)
 		update_ui()
 
 func buy_obaa() -> void:
@@ -89,6 +107,7 @@ func buy_obaa() -> void:
 		andagi_count -= obaa_cost
 		obaa_count += 1
 		obaa_cost = int(round(obaa_cost * 1.15))
+		play_randomized_se(buy_se)
 		update_ui()
 
 func buy_nabi() -> void:
@@ -96,6 +115,7 @@ func buy_nabi() -> void:
 		andagi_count -= nabi_cost
 		nabi_count += 1
 		nabi_cost = int(round(nabi_cost * 1.15))
+		play_randomized_se(buy_se)
 		update_ui()
 
 func buy_shop() -> void:
@@ -103,6 +123,7 @@ func buy_shop() -> void:
 		andagi_count -= shop_cost
 		shop_count += 1
 		shop_cost = int(round(shop_cost * 1.15))
+		play_randomized_se(buy_se)
 		update_ui()
 
 func buy_mall() -> void:
@@ -110,6 +131,7 @@ func buy_mall() -> void:
 		andagi_count -= mall_cost
 		mall_count += 1
 		mall_cost = int(round(mall_cost * 1.15))
+		play_randomized_se(buy_se)
 		update_ui()
 
 func buy_gusuku() -> void:
@@ -117,6 +139,7 @@ func buy_gusuku() -> void:
 		andagi_count -= gusuku_cost
 		gusuku_count += 1
 		gusuku_cost = int(round(gusuku_cost * 1.15))
+		play_randomized_se(buy_se)
 		update_ui()
 
 func buy_fujinkai() -> void:
@@ -124,10 +147,14 @@ func buy_fujinkai() -> void:
 		andagi_count -= fujinkai_cost
 		fujinkai_count += 1
 		fujinkai_cost = int(round(fujinkai_cost * 1.15))
+		play_randomized_se(buy_se)
 		update_ui()
 
 func _on_auto_timer_timeout() -> void:
 	update_ui()
+	var has_producer = paranku_count > 0 or obaa_count > 0 or nabi_count > 0 or shop_count > 0 or mall_count > 0 or gusuku_count > 0 or fujinkai_count > 0
+	if has_producer:
+		play_randomized_se(auto_produce_se)
 
 func update_ui() -> void:
 	count_label.text = "アンダギー: " + str(int(andagi_count))

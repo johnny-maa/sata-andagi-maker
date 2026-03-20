@@ -67,7 +67,7 @@ layout_mode = 2
 [node name="HireParankuButton" type="Button" parent="ShopScroll/ShopContainer/ParankuBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "パーランクーを雇う"
+text = "パーランクー応援"
 
 [node name="ParankuCountLabel" type="Label" parent="ShopScroll/ShopContainer/ParankuBox"]
 layout_mode = 2
@@ -223,6 +223,15 @@ offset_bottom = 55.0
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "保存しました"
+
+[node name="ClickSE" type="AudioStreamPlayer" parent="."]
+max_polyphony = 5
+
+[node name="BuySE" type="AudioStreamPlayer" parent="."]
+max_polyphony = 5
+
+[node name="AutoProduceSE" type="AudioStreamPlayer" parent="."]
+max_polyphony = 5
 
 [connection signal="pressed" from="AndagiButton" to="." method="_on_andagi_button_pressed"]
 [connection signal="pressed" from="ShopScroll/ShopContainer/ParankuBox/HireParankuButton" to="." method="buy_paranku"]
