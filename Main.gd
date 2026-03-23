@@ -82,7 +82,7 @@ func _on_andagi_button_pressed() -> void:
 	tween.tween_property($AndagiButton, "scale", Vector2(1.0, 1.0), 0.3).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	
 	var ft = floating_text_scene.instantiate()
-	ft.get_node("Label").text = "+" + str(1.0 * multiplier)
+	ft.get_node("Label").text = "+" + format_number(1.0 * multiplier)
 	ft.global_position = get_global_mouse_position()
 	add_child(ft)
 	
@@ -156,35 +156,45 @@ func _on_auto_timer_timeout() -> void:
 	if has_producer:
 		play_randomized_se(auto_produce_se)
 
+func format_number(value: float) -> String:
+	if value < 10000.0:
+		return str(int(value))
+	elif value < 100000000.0:
+		return str(snapped(value / 10000.0, 0.01)) + "万"
+	elif value < 1000000000000.0:
+		return str(snapped(value / 100000000.0, 0.01)) + "億"
+	else:
+		return str(snapped(value / 1000000000000.0, 0.01)) + "兆"
+
 func update_ui() -> void:
-	count_label.text = "アンダギー: " + str(int(andagi_count))
+	count_label.text = "アンダギー: " + format_number(andagi_count)
 	
-	paranku_count_label.text = "所持数: " + str(paranku_count) + " 個"
-	paranku_cost_label.text = "コスト: " + str(paranku_cost)
+	paranku_count_label.text = "所持数: " + format_number(paranku_count) + " 個"
+	paranku_cost_label.text = "コスト: " + format_number(paranku_cost)
 	hire_paranku_button.disabled = andagi_count < paranku_cost
 	
-	obaa_count_label.text = "所持数: " + str(obaa_count) + " 人"
-	obaa_cost_label.text = "コスト: " + str(obaa_cost)
+	obaa_count_label.text = "所持数: " + format_number(obaa_count) + " 人"
+	obaa_cost_label.text = "コスト: " + format_number(obaa_cost)
 	hire_obaa_button.disabled = andagi_count < obaa_cost
 	
-	nabi_count_label.text = "所持数: " + str(nabi_count) + " 個"
-	nabi_cost_label.text = "コスト: " + str(nabi_cost)
+	nabi_count_label.text = "所持数: " + format_number(nabi_count) + " 個"
+	nabi_cost_label.text = "コスト: " + format_number(nabi_cost)
 	add_nabi_button.disabled = andagi_count < nabi_cost
 	
-	shop_count_label.text = "所持数: " + str(shop_count) + " 軒"
-	shop_cost_label.text = "コスト: " + str(shop_cost)
+	shop_count_label.text = "所持数: " + format_number(shop_count) + " 軒"
+	shop_cost_label.text = "コスト: " + format_number(shop_cost)
 	add_shop_button.disabled = andagi_count < shop_cost
 	
-	mall_count_label.text = "所持数: " + str(mall_count) + " 軒"
-	mall_cost_label.text = "コスト: " + str(mall_cost)
+	mall_count_label.text = "所持数: " + format_number(mall_count) + " 軒"
+	mall_cost_label.text = "コスト: " + format_number(mall_cost)
 	build_mall_button.disabled = andagi_count < mall_cost
 	
-	gusuku_count_label.text = "所持数: " + str(gusuku_count) + " 城"
-	gusuku_cost_label.text = "コスト: " + str(gusuku_cost)
+	gusuku_count_label.text = "所持数: " + format_number(gusuku_count) + " 城"
+	gusuku_cost_label.text = "コスト: " + format_number(gusuku_cost)
 	build_gusuku_button.disabled = andagi_count < gusuku_cost
 	
-	fujinkai_count_label.text = "所持数: " + str(fujinkai_count) + " 人"
-	fujinkai_cost_label.text = "コスト: " + str(fujinkai_cost)
+	fujinkai_count_label.text = "所持数: " + format_number(fujinkai_count) + " 人"
+	fujinkai_cost_label.text = "コスト: " + format_number(fujinkai_cost)
 	add_fujinkai_button.disabled = andagi_count < fujinkai_cost
 
 const SAVE_PATH = "user://save_data.json"
