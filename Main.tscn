@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8y4g2k7w8c3v"]
 
 [ext_resource type="Script" uid="uid://db8o4endvvhvc" path="res://Main.gd" id="1_q1w2e"]
-[ext_resource type="Texture2D" uid="uid://dcorikjr2nrpi" path="res://icon.svg" id="2_a1b2c"]
+[ext_resource type="Texture2D" path="res://assets/sweets_saataa_andagii.png" id="2_a1b2c"]
 
 [node name="Main" type="Control"]
 layout_mode = 3

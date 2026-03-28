@@ -408,8 +408,8 @@ func _on_golden_andagi_spawn_timer_timeout(timer: Timer) -> void:
 
 func spawn_golden_andagi() -> void:
 	var btn = TextureButton.new()
-	btn.texture_normal = preload("res://icon.svg")
-	btn.modulate = Color(1, 0.84, 0) # Gold color
+	btn.texture_normal = preload("res://assets/sweets_saataa_andagii.png")
+	btn.modulate = Color("ffd700") # Gold color
 	btn.ignore_texture_size = true
 	btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 	btn.custom_minimum_size = Vector2(64, 64)
