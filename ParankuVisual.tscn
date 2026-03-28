@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2h4parankuvi"]
+
+[ext_resource type="Texture2D" uid="uid://dcorikjr2nrpi" path="res://icon.svg" id="1_icon"]
+
+[node name="ParankuVisual" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_icon")
