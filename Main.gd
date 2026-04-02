@@ -66,6 +66,12 @@ func _ready() -> void:
 	load_game()
 	$AutoTimer.wait_time = 0.1 # More responsive UI updates
 	setup_golden_andagi_timer()
+	setup_colors()
+	
+	if has_node("TabButtons/BuildingTabButton"):
+		$TabButtons/BuildingTabButton.pressed.connect(_on_building_tab_pressed)
+	if has_node("TabButtons/UpgradeTabButton"):
+		$TabButtons/UpgradeTabButton.pressed.connect(_on_upgrade_tab_pressed)
 	
 	if is_instance_valid(upgrade_seinenkai_button):
 		upgrade_seinenkai_button.text = "エイサー青年会の助っ人\nコスト: " + format_number(1000)
@@ -85,6 +91,11 @@ func _ready() -> void:
 		if has_upgrade_pta:
 			upgrade_pta_button.queue_free()
 		
+	if is_instance_valid(hire_obaa_button):
+		hire_obaa_button.icon = preload("res://assets/oba.png")
+		hire_obaa_button.expand_icon = true
+		hire_obaa_button.custom_minimum_size = Vector2(0, 80)
+
 	update_ui()
 	
 	$ParankuContainer.position = get_viewport_rect().size / 2.0
@@ -180,8 +191,8 @@ func add_single_paranku_visual(count: int, animate: bool = true) -> void:
 		var visual_sprite = visual.get_node_or_null("Sprite2D")
 		if is_instance_valid(visual_sprite):
 			var tween = create_tween()
-			tween.tween_property(visual_sprite, "scale", Vector2(0.18, 0.18), 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-			tween.tween_property(visual_sprite, "scale", Vector2(0.15, 0.15), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+			tween.tween_property(visual_sprite, "scale", Vector2(0.024, 0.024), 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			tween.tween_property(visual_sprite, "scale", Vector2(0.02, 0.02), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 
 func buy_obaa() -> void:
@@ -270,8 +281,8 @@ func animate_parankus_hit() -> void:
 		var visual_sprite = child.get_node_or_null("Sprite2D")
 		if is_instance_valid(visual_sprite):
 			var tween = create_tween()
-			tween.tween_property(visual_sprite, "scale", Vector2(0.18, 0.18), 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-			tween.tween_property(visual_sprite, "scale", Vector2(0.15, 0.15), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+			tween.tween_property(visual_sprite, "scale", Vector2(0.024, 0.024), 0.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			tween.tween_property(visual_sprite, "scale", Vector2(0.02, 0.02), 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 func _on_auto_timer_timeout() -> void:
 	update_ui()
@@ -290,6 +301,52 @@ func format_number(value: float) -> String:
 		return str(snapped(value / 100000000.0, 0.01)) + "億"
 	else:
 		return str(snapped(value / 1000000000000.0, 0.01)) + "兆"
+
+func setup_colors() -> void:
+	var bengara_style = StyleBoxFlat.new()
+	bengara_style.bg_color = Color("#8b3a33")
+	bengara_style.corner_radius_top_left = 12
+	bengara_style.corner_radius_top_right = 12
+	bengara_style.corner_radius_bottom_left = 12
+	bengara_style.corner_radius_bottom_right = 12
+	bengara_style.content_margin_left = 16
+	bengara_style.content_margin_right = 16
+	bengara_style.content_margin_top = 16
+	bengara_style.content_margin_bottom = 16
+
+	if has_node("ShopScroll"):
+		$ShopScroll.add_theme_stylebox_override("panel", bengara_style)
+	if has_node("UpgradeScroll"):
+		$UpgradeScroll.add_theme_stylebox_override("panel", bengara_style)
+
+	var text_color = Color("#fffae6")
+
+	var set_label_color = func(node):
+		if node is Label:
+			node.add_theme_color_override("font_color", text_color)
+
+	if has_node("ShopScroll/ShopContainer"):
+		for child in $ShopScroll/ShopContainer.get_children():
+			if child is Container:
+				for sub_child in child.get_children():
+					set_label_color.call(sub_child)
+
+	if has_node("UpgradeScroll/UpgradeContainer"):
+		for child in $UpgradeScroll/UpgradeContainer.get_children():
+			set_label_color.call(child)
+
+	if has_node("CountLabel"):
+		$CountLabel.add_theme_color_override("font_color", Color("#a0522d"))
+
+func _on_building_tab_pressed() -> void:
+	if has_node("ShopScroll") and has_node("UpgradeScroll"):
+		$ShopScroll.visible = true
+		$UpgradeScroll.visible = false
+
+func _on_upgrade_tab_pressed() -> void:
+	if has_node("ShopScroll") and has_node("UpgradeScroll"):
+		$ShopScroll.visible = false
+		$UpgradeScroll.visible = true
 
 func update_ui() -> void:
 	count_label.text = "アンダギー: " + format_number(andagi_count)
@@ -408,8 +465,8 @@ func _on_golden_andagi_spawn_timer_timeout(timer: Timer) -> void:
 
 func spawn_golden_andagi() -> void:
 	var btn = TextureButton.new()
-	btn.texture_normal = preload("res://assets/sweets_saataa_andagii.png")
-	btn.modulate = Color("ffd700") # Gold color
+	btn.texture_normal = preload("res://icon.svg")
+	btn.modulate = Color(1, 0.84, 0)
 	btn.ignore_texture_size = true
 	btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 	btn.custom_minimum_size = Vector2(64, 64)
@@ -437,10 +494,11 @@ func _on_golden_andagi_pressed(btn: TextureButton) -> void:
 
 func start_fever_mode() -> void:
 	is_fever_mode = true
-	count_label.modulate = Color(1, 0.84, 0)
+	count_label.modulate = Color(1, 1, 1)
+	count_label.add_theme_color_override("font_color", Color("#ffd700"))
 	
 	var timer = get_tree().create_timer(30.0)
 	timer.timeout.connect(func():
 		is_fever_mode = false
-		count_label.modulate = Color(1, 1, 1)
+		count_label.add_theme_color_override("font_color", Color("#a0522d"))
 	)

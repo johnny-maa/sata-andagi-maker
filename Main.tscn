@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8y4g2k7w8c3v"]
 
 [ext_resource type="Script" uid="uid://db8o4endvvhvc" path="res://Main.gd" id="1_q1w2e"]
-[ext_resource type="Texture2D" path="res://assets/sweets_saataa_andagii.png" id="2_a1b2c"]
+[ext_resource type="Texture2D" path="res://assets/andagi.png" id="2_a1b2c"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -12,7 +12,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_q1w2e")
 
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9725, 0.9569, 0.902, 1)
+
 [node name="CountLabel" type="Label" parent="."]
+z_index = 10
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -47,6 +57,28 @@ pivot_offset = Vector2(64, 64)
 texture_normal = ExtResource("2_a1b2c")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="TabButtons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -290.0
+offset_right = -30.0
+offset_bottom = -250.0
+
+[node name="BuildingTabButton" type="Button" parent="TabButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "施設"
+
+[node name="UpgradeTabButton" type="Button" parent="TabButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "アップグレード"
 
 [node name="ShopScroll" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -208,14 +240,18 @@ text = "コスト: 33000000"
 horizontal_alignment = 1
 
 [node name="UpgradeScroll" type="ScrollContainer" parent="."]
+visible = false
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 30.0
+offset_left = -280.0
 offset_top = -250.0
-offset_right = 330.0
+offset_right = -30.0
 offset_bottom = 250.0
+grow_horizontal = 0
 grow_vertical = 2
 
 [node name="UpgradeContainer" type="VBoxContainer" parent="UpgradeScroll"]
